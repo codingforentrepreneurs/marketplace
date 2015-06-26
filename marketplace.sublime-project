@@ -2,10 +2,7 @@
 	"folders":
 	[
 		{
-			"path": "src"
-		},
-		{
-			"path": "static"
+			"path": "."
 		}
 	]
 }
