@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+<h1>{{ product.title }} images</h1>
+
+<form method='POST' action='' enctype="multipart/form-data"> {% csrf_token %}
+    {{ formset.management_form }}
+    <table>
+        <thead>
+            <th>Image</th><th>Upload New</th><th>Make Featured</th><th style='text-align:right; width:100px;'>Delete Image</th>
+        </thead>
+    {% for form in formset %}
+
+       <tr> <td><h2>{{ form.instance.title }}</h2><img src="{{ form.instance.image.url }}" width='200'/> </td>{% for field in form %}
+         <td>{{ field }}</td>
+        {% endfor %}
+   
+    </tr>
+    {% endfor %}
+     <tfoot><td><input type='submit' value='Save' /></td></tfoot>
+    </table>
+</form>
+{% endblock %}

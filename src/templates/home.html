@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block jumbotron %}
+    
+          <div class="jumbotron">
+        <h1>Navbar example</h1>
+        {% if featured.jumbo_text %}
+        <p>{{ featured.jumbo_text }}</p>
+        {% else %}
+        <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+        <p>To see the difference between static and fixed top navbars, just scroll.</p>
+        {% endif %}
+        <p>
+          <a class="btn btn-lg btn-primary" href="http://getbootstrap.com/components/#navbar" role="button">View navbar docs &raquo;</a>
+        </p>
+      </div>
+    {% endblock %}
+{% block content %}
+
+<div class='row'>
+
+
+{% for product in featured_products %}
+ <div class="col-sm-4">
+    <div class="thumbnail">
+        
+
+{% if product.get_featured_image  %}
+<img src="{{ product.get_featured_image.url }}" style='max-height: 200px;'>  <br/>
+{% else %}
+<img src="{% static 'img/placeholder_image.png' %}" alt="...">
+{% endif %}
+ <h3>{{ product }} </h3>
+ <p>{{ product.description }}</p>
+ <p> {{ product.get_price }}</p>
+        <p><a href="{% url 'single_product' product.slug %}" class="btn btn-primary" role="button">View Product</a>
+        
+        {% if product in cartitems %}
+        <a href="{% url 'cart' %}" class="btn btn-default">View Cart</a>
+        {% else %}
+        <a href="{% url 'update_cart' product.id %}" class="btn btn-default" role="button">Add to Cart</a></p>
+        {% endif %}
+      </div>
+    </div>
+{% endfor %}
+
+
+       
+        
+
+    
+  </div>
+
+
+    
+    
+    
+    
+{% endblock %}

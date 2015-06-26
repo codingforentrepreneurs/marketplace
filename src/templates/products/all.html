@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+<div class='row'>
+    <div class='col-xs-12'>
+        <h1>Products</h1>
+    </div>
+</div>
+
+
+<div class='row'>
+{% for product in products %}
+    
+   <div class='col-sm-4' style='text-align: center;'>
+    {% for image in product.productimage_set.all %}
+        {% if image.featured_image %}
+         <a href="{% url "single_product" product.slug %}">
+            <img  class="img-responsive" src='{{ image.image.url }}' style='max-height:150px;margin: 0 auto;' />
+         </a>
+        {% endif %}
+        {% endfor %}
+    <a href="{% url "single_product" product.slug %}">{{ product }}</a>{% if product.category_set.all %}, {% if product.category_set.all|length == 1 %}Category{% else %}Categories{%endif%}:
+   {% for item in product.category_set.all %}
+   <a href="{{ item.get_absolute_url }}">{{ item }}</a> 
+{% endfor %}
+{% endif %}
+   </a>
+   
+   </div>
+    {% cycle '' '' '</div><hr/><div class="row">'%}
+    {% endfor %}
+
+ </div>
+    
+    
+    
+    
+    
+{% endblock %}

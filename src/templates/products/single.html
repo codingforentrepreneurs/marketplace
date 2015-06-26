@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load filename %}
+
+
+{% block content %}
+
+<div class='row'>
+
+    <div class='col-sm-8 pull-left '>
+    <h1>{{ product }} </h1>
+    
+    {% for abc in images %}
+    <img src="{{ abc.image.url }}" width='500' />
+    {% endfor %}
+    
+    
+
+    
+    
+    {% if related %}
+    <h1>Related Product{% if related|length > 1 %}s{%endif%}</h1>
+    <ul>
+    
+    {% for item in related %}
+    
+    <li>
+        
+     <a href="{{ item.get_absolute_url }}">{{ item }}</a> 
+     </li>
+    
+    {% endfor %}
+    
+    </ul>
+    {% endif %}
+    
+    </div>
+    <!-- Starts right sidebar -->
+    <div class='col-sm-4 pull-right'>
+        <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Product: {{ product }}</h3>
+      </div>
+      <div class="panel-body">
+        {{ product.description }} <br/>
+        ${{ product.get_price }}
+        <br/>
+        <br/>
+
+            {% if in_cart %}
+          In Cart <a class='btn btn-success' href='{% url "cart" %}'>View Cart</a>
+        {% else %}
+    <a class='btn btn-warning' href='{% url "update_cart" product.id %}'>Add to Cart</a>
+    
+{% endif %}
+
+        
+      </div>
+    </div>
+        
+        
+            {% if categories %}
+                 <div class="panel panel-default">
+         <div class="panel-heading">
+            <h1 class="panel-title">Categor{% if categories|length == 1 %}y{%else%}ies{%endif%}</h1>
+    
+        </div>
+    <div class="panel-body">
+        <ul>
+        
+        {% for item in categories %}
+        
+        <li>
+            
+         <a href="{{ item.get_absolute_url }}">{{ item }}</a> 
+         </li>
+        
+        {% endfor %}
+        
+        </ul>
+
+         </div>
+                 </div>
+    {% endif %}
+
+  
+    
+    {% if downloadable or edit %}
+            <div class="panel panel-default">
+         <div class="panel-heading">
+           <h3 class="panel-title">My Actions</h3>
+         </div>
+         <div class="panel-body">
+            
+            
+            <div class="btn-group-vertical">
+                    
+                 {% if product.download and downloadable %}
+        <a class='btn btn-default' href='download/{{ product.download|filename }}'>Download Product</a>
+        {% endif %}
+         {% if edit %}
+        
+        <a  class='btn btn-default' href='{% url "edit_product" product.slug %}'>Edit {{ product }}</a>
+        <a  class='btn btn-default' href='{% url "manage_product_image" product.slug %}'>Manage Images</a>
+    {% endif %}
+    
+
+  
+            </div>
+            
+            
+ 
+    
+
+         </div>
+       </div>
+
+
+        
+    
+    
+    {% endif %}
+    
+
+    </div>
+</div>
+{% endblock %}

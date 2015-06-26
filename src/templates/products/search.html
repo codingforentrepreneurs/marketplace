@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load filename %}
+{% block content %}
+
+
+
+<h3>Results for: {{ query }}</h3>
+
+<h1> Products</h1>
+<ol>
+{% for item in results %}
+    {% if item|classname == "Product" %}
+<li>
+    
+ <a href="{{ item.get_absolute_url }}">{{ item }}</a>  Product
+ </li>{% endif%}
+
+
+ {% endfor %}
+
+ </ol>
+ 
+ <h1> Categories </h1>
+ {% for item in results %}
+ <ul>
+  {% if item|classname == 'Category' %}
+  <li>
+   <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+ </li>
+
+ {% endif %}
+ </ul>
+ {% endfor %}
+ 
+    
+    
+    
+{% endblock %}

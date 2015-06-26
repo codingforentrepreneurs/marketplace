@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load filename %}
+
+{% block content %}
+
+
+<table>
+    
+    <thead><th>Title</th><th>Description</th><th>Download</th></thead>
+    
+    {% for product in products %}
+    <tr>
+        <td>
+            {{ product }}
+        </td>
+        <td>
+            {{ product.description }}
+        </td>
+        <td>
+            <a href='{% url 'download_product' product.slug product.download|filename %}'>Download {{ product.download|filename }}</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+{% endblock %}

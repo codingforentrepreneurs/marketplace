@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+<h1>{{ category }}</h1>
+
+{% for item in category.products.all %}
+
+<li>
+    
+ <a href="{{ item.get_absolute_url }}">{{ item }}</a> 
+ </li>
+
+{% endfor %}
+
+<hr/>
+
+{% if related %}
+<h3>Related Categories</h3>
+
+{% for item in related %}
+
+<li>
+    
+ <a href="{{ item.get_absolute_url }}">{{ item }}</a> 
+ </li>
+
+{% endfor %}
+
+{% endif %}
+
+
+{% endblock %}

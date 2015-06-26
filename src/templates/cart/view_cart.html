@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+
+{% if exists %}
+<h1>Cart</h1>
+
+
+
+<table>
+    <thead>
+        <th>Item</th>
+        <th></th>
+        <th>Price</th>
+    </thead>
+    
+    {% for item in cart.cartitem_set.all %}
+    <tr>
+        <td>
+            {{ item.product }}
+        </td>
+        <td>
+            
+        </td>
+        <td>            
+            {% if item.product.sale_price %}
+            <span style='color:red'>Sale Price: {{ item.product.sale_price }}</span> 
+            {% else %}
+            {{ item.product.price }}
+            {% endif %}
+            
+        </td>
+        <td>
+            <a href='{% url "update_cart" item.product.id %}'>X</a>
+        </td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td></td>
+        <td>Sub total:</td>
+        <td>{{ cart.total }}</td>
+    </tr>
+</table>
+
+{% else %}
+
+
+<h1>Your Cart is Empty!</h1>
+
+{% endif %}
+{% endblock %}
